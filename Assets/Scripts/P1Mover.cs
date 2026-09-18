@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class P1Mover : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Transform hingePoint;
+    public float rotateSpeed = 500f;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.RotateAround(hingePoint.position, Vector3.up, rotateSpeed * Time.deltaTime);
+        }
     }
+
 }
