@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class P2Mover : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public float upAngle = 45f;
+    public float downAngle = 0f;
+    public float rotateSpeed = 500f;
+    private Quaternion startingRotation;
     void Start()
     {
-        
+        startingRotation = transform.localRotation;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        float targetAngle;
+        if (Input.GetKey(KeyCode.D))
+        {
+            targetAngle = upAngle;
+        }
+        else
+        {
+            targetAngle = downAngle;
+        }
+        Quaternion targetRotation = startingRotation * Quaternion.Euler(0f, -targetAngle, 0f);
+        transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, rotateSpeed * Time.deltaTime);
     }
 }

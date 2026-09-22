@@ -2,15 +2,28 @@ using UnityEngine;
 
 public class P1Mover : MonoBehaviour
 {
-    public Transform hingePoint;
+    public float upAngle = 45f;
+    public float downAngle = 0f;
     public float rotateSpeed = 500f;
+    private Quaternion startingRotation;
+    void Start()
+    {
+        startingRotation = transform.localRotation;
+    }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        float targetAngle;
+        if (Input.GetKey(KeyCode.A)) 
         {
-            transform.RotateAround(hingePoint.position, Vector3.up, rotateSpeed * Time.deltaTime);
+            targetAngle = upAngle;
         }
+        else 
+        {
+            targetAngle = downAngle;
+        }
+        Quaternion targetRotation = startingRotation * Quaternion.Euler(0f, targetAngle, 0f);
+        transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, rotateSpeed * Time.deltaTime);
     }
 
 }
